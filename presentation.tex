@@ -1,0 +1,94 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{courier}
+%\usepackage[left=0.1cm,right=0.1cm,top=1cm,bottom=1cm]{geometry}
+\usepackage{xcolor}
+\usepackage{enumerate}
+\usepackage{todonotes}
+\usepackage[babel,german=quotes]{csquotes}
+\usepackage[style=numeric, backend=bibtex]{biblatex}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{xpatch}
+\usepackage{lscape}
+%\usepackage{mathptmx}
+\usepackage{longtable}
+\usepackage{pdfpages}
+\usepackage{hyperref}
+\usepackage{pifont}
+%\usepackage[onehalfspacing]{setspace}
+\usepackage{caption}
+\captionsetup{font={scriptsize}}
+\usepackage{multimedia}
+\usepackage{media9}
+
+\usetheme{EastLansing}
+%\usecolortheme{crane}
+\usefonttheme{professionalfonts}
+\useinnertheme{rounded}
+\useoutertheme{default}
+
+\newtheorem{sentence}{Satz}
+\newtheorem{law}{Gesetz}
+\newtheorem{postulat}{Postulate}
+\newtheorem{ex}{Beispiel}
+
+\def\colorize<#1>{%
+	\temporal<#1>{\color{red!50}}{\color{black}}{\color{black!50}}}
+\setbeamertemplate{footline}[frame number, title, author]
+\setbeamerfont{caption}{size=\scriptsize}
+\setbeamerfont{footnote}{size=\scriptsize}
+\setbeamercolor{item}{use={structure,normal text},fg=structure.fg!0!normal text.fg}
+\setbeamercolor{special text}{use={1,0,0}}
+\setbeamertemplate{navigation symbols}{\insertframenavigationsymbol\insertbackfindforwardnavigationsymbol}
+\setbeamercolor{title}{fg=black!70!white,bg=green!10!yellow}
+\setbeamercolor*{palette primary}{fg=green!10!yellow,bg=black!30!white}
+\setbeamercolor*{palette secondary}{use=structure,fg=green!10!yellow,bg=black!50!white}
+\setbeamercolor*{palette tertiary}{use=structure,fg=green!10!yellow,bg=black!70!white}
+\setbeamercolor{frametitle}{fg=black!70!white,bg=green!10!yellow!70!white}
+\setbeamertemplate{headline}
+{%
+	\begin{beamercolorbox}{section in head/foot}
+		\vskip2pt\insertnavigation{\paperwidth}\vskip2pt
+	\end{beamercolorbox}%
+}
+\setbeamercolor{block title}{fg=black!70!white,bg=green!10!yellow}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!yellow!30!white}
+\setbeamercolor{codex}{fg=black,bg=green!10!yellow!30!white}
+
+%the following lines generate the bullet points in the header
+\usepackage{remreset}
+\makeatletter
+%\@removefromreset{subsection}{section}
+%\makeatother
+%\setcounter{subsection}{1}
+
+\title[Bayes-Statistik \& Wahlprognosen]{\textbf{Tag 5: Bayes-Statistik und Wahlprognosen}}
+\author[Philip \and Tanja \and Maximilian]{Philip Biegel \and Tanja Bien \and Maximilian Wiesmann}
+\institute[]{Sommerakademie der Studienstiftung Olang - Arbeitsgruppe 4: Empirische Wahlforschung und Wahlprognosen}
+\date{6. September 2019}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Inhalt}
+\section[Inhalt]{Inhalt}
+\tableofcontents
+\end{frame}
+
+\end{document}
