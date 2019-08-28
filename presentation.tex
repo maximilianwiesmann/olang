@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage{amsthm}
 \usepackage{courier}
+%\usepackage[left=0.1cm,right=0.1cm,top=1cm,bottom=1cm]{geometry}
 \usepackage{xcolor}
 \usepackage{enumerate}
 \usepackage{todonotes}
@@ -20,22 +21,26 @@
 \usepackage{verbatim}
 \usepackage{xpatch}
 \usepackage{lscape}
+%\usepackage{mathptmx}
 \usepackage{longtable}
 \usepackage{pdfpages}
 \usepackage{hyperref}
 \usepackage{pifont}
+%\usepackage[onehalfspacing]{setspace}
 \usepackage{caption}
 \captionsetup{font={scriptsize}}
 \usepackage{multimedia}
 \usepackage{media9}
 
 \usetheme{EastLansing}
+%\usecolortheme{crane}
 \usefonttheme{professionalfonts}
 \useinnertheme{rounded}
 \useoutertheme{default}
 
 \newtheorem{satz}{Satz}
 \newtheorem{law}{Gesetz}
+\newtheorem{postulat}{Postulate}
 \newtheorem{ex}{Beispiel}
 
 \def\colorize<#1>{%
@@ -60,9 +65,9 @@
 \setbeamercolor{block title}{fg=black!70!white,bg=green!10!yellow}
 \setbeamercolor{block body}{use=structure,fg=black,bg=green!10!yellow!30!white}
 \setbeamercolor{codex}{fg=black,bg=green!10!yellow!30!white}
+
 \usepackage{remreset}
 \makeatletter
-
 
 \title[Bayes-Statistik \& Wahlprognosen]{\textbf{Tag 5: Bayes-Statistik und Wahlprognosen}}
 \author[Philip \and Tanja \and Maximilian]{Philip Biegel \and Tanja Bien \and Maximilian Wiesmann}
@@ -80,6 +85,60 @@
 \frametitle{Inhalt}
 \section[Inhalt]{Inhalt}
 \tableofcontents
+\end{frame}
+
+\section{Bayessche Inferenz}
+\begin{frame}
+\frametitle{Bayessche Inferenz}
+\begin{itemize}
+	\item[]<1-> 
+	\begin{beamercolorbox}[sep=0.5em,wd=\textwidth,shadow=true,rounded=true]{codex}
+		\textit{\glqq At the heart of statistics lie the ideas of statistical inference. Methods of statistical inference enable the investigator to argue from the particular observations in a sample to the general case. In contrast to logical deductions made from the general case to the specific case, a statistical inference can sometimes be incorrect. Nevertheless, one of the great intellectual advances of the twentieth century is the realization that strong scientific evidence can be developed on the basis of many, highly variable, observations.\grqq} (aus: Encyclopedia of Mathematics)
+	\end{beamercolorbox}
+	\item[]<2->
+	\begin{satz}[Bayes]
+		$$Pr(A|B) = \frac{Pr(B|A)Pr(A)}{Pr(B)} = \frac{Pr(B|A)Pr(A)}{\sum Pr(B|A)Pr(A)}$$
+	\end{satz}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bsp.: Diagnosetest}
+\begin{itemize}
+	\item<1-> $D+$: Person ist krank; $D-$: Person nicht krank
+	\item<1-> $T+$: Test positiv; $T-$: Test negativ
+	\item<1-> $Pr(T+|D+)=Pr(T-|D-)=90\%$
+	\item<1-> $Pr(D+)=1\%$
+	\item<2-> $\Rightarrow Pr(T+) = Pr(T+|D+)Pr(D+) + Pr(T+|D-)Pr(D-) = Pr(T+|D+)Pr(D+) + (1-Pr(T+|D+))(1-Pr(D-)) = 0,108$
+	\item<3-> $\overset{\text{Bayes}}{\Rightarrow} Pr(D+|T+) = \frac{Pr(T+|D+)Pr(D+)}{Pr(T+)}\approx 0,083$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bayes für kontinuierliche Verteilungen}
+\begin{itemize}
+	\item[]<1-> \begin{satz}[Bayes]
+		$$f(\theta|x)=\frac{f(x|\theta)f(\theta)}{f(x)}=\frac{f(x|\theta)f(\theta)}{\int f(x|\theta)f(\theta)\text{d}\theta}\propto f(x|\theta)f(\theta)$$
+	\end{satz}
+	\item<2-> $f(\theta|x)$: posterior distribution
+	\item<2-> $f(\theta)$: prior distribution
+	\item<2-> $f(x|\theta)$: likelihood function (auch bez. mit $L(\theta)$)
+	\item<2-> $f(x)$: marginal likelihood
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bayesian Point Estimates}
+\begin{itemize}
+	\item<1-> posterior mean $E(\theta|x)=\int \theta f(\theta|x)\text{d}\theta$
+	\item<2-> posterior mode $Mod(\theta|x) = \underset{\theta}{\text{arg max}} f(\theta|x)$
+	\item<3-> posterior median $Med(\theta|x) = a, \text{sd. } \int_{-\infty}^{a}f(\theta|x)\text{d}\theta = \frac{1}{2} = \int_{a}^{\infty}f(\theta|x)\text{d}\theta$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Credible Intervals}
+
 \end{frame}
 
 \end{document}
