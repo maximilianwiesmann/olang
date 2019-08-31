@@ -31,6 +31,7 @@
 \captionsetup{font={scriptsize}}
 \usepackage{multimedia}
 \usepackage{media9}
+\usepackage{mathrsfs}
 
 \usetheme{EastLansing}
 %\usecolortheme{crane}
@@ -130,15 +131,149 @@
 \begin{frame}
 \frametitle{Bayesian Point Estimates}
 \begin{itemize}
-	\item<1-> posterior mean $E(\theta|x)=\int \theta f(\theta|x)\text{d}\theta$
-	\item<2-> posterior mode $Mod(\theta|x) = \underset{\theta}{\text{arg max}} f(\theta|x)$
-	\item<3-> posterior median $Med(\theta|x) = a, \text{sd. } \int_{-\infty}^{a}f(\theta|x)\text{d}\theta = \frac{1}{2} = \int_{a}^{\infty}f(\theta|x)\text{d}\theta$
+	\item<1-> posterior mean $E(\theta|x)=\int \theta f(\theta|x)\,\text{d}\theta$
+	\item<2-> posterior mode $Mod(\theta|x) = \underset{\theta}{\text{arg max}}\,f(\theta|x)$
+	\item<3-> posterior median $Med(\theta|x) = a, \text{sd. } \int_{-\infty}^{a}f(\theta|x)\,\text{d}\theta = \frac{1}{2} = \int_{a}^{\infty}f(\theta|x)\,\text{d}\theta$
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Credible Intervals}
+\begin{itemize}
+	\item<1-> Das Intervall $I=[t_l,t_u]$ heißt $\gamma\cdot 100\%$ credible interval (Glaubwürdigkeitsintervall), falls gilt: $$\int_{t_l}^{t_u}f(\theta|x)\,\text{d}\theta = \gamma$$
+	\item<2-> equi-tailed: $$\int_{-\infty}^{t_l}f(\theta|x)\,\text{d}\theta = \int_{t_u}^{\infty}f(\theta|x)\,\text{d}\theta = \frac{1-\gamma}{2}$$
+	\item<3-> highest posterior density (HPD): $$f(\theta|x)\geq f(\tilde{\theta}|x)~\forall\theta\in I, \tilde{\theta}\notin I$$
+	in \glqq schönen\grqq~Fällen gilt: $f(t_l|x)=f(t_u|x)$
+\end{itemize}
+\end{frame}
 
+\begin{frame}
+\frametitle{Beta-Verteilung}
+\begin{itemize}
+	\item<1-> $\Theta \sim Be(\alpha,\beta)$
+	\item<2-> Dichtefunktion $$f(\theta)=\left\{\begin{array}{ll}
+	\frac{1}{B(\alpha,\beta)}\theta^{\alpha -1}(1-\theta)^{\beta -1} & \text{für }\theta\in[0,1]\\
+	0 & \text{sonst}\\
+	\end{array}\right.$$
+	mit Beta-Funktion $B(\alpha,\beta)=\int_0^1t^{\alpha-1}(1-t)^{\beta-1}\,\text{d}t = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}$
+	\item<3-> $$E(\Theta) = \frac{\alpha}{\alpha+\beta}\quad,\quad Mod(\Theta)=\frac{\alpha-1}{\alpha+\beta-2}\quad,\quad Var(\Theta)=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}$$
+	\item<4-> für $\alpha=\beta=1$ erhält man die Gleichverteilung auf $[0,1]$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Beta-Verteilung}
+\begin{itemize}
+	\item<1-> $X\sim Bin(n,\theta)~,\quad \Theta\sim Be(\alpha,\beta)$
+	\item<2-> $\Rightarrow f(\theta|x)\propto f(x|\theta)f(\theta)\propto \theta^x(1-\theta)^{n-x}\theta^{\alpha-1}(1-\theta)^{\beta-1}$
+	\item<3-> $\Rightarrow \Theta|x \sim Be(\alpha+x,\beta+n-x)$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Beta-Verteilung Beispiel}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{itemize}
+			\item<1-> $\Theta\sim Be(3,2)~,\quad X\sim Bin(n,\theta)$
+			\item<2-> Ergebnis der Stichprobe mit Umfang $n=10$: $x=8$
+			\item<3-> $\Rightarrow \Theta|x\sim Be(11,4)$
+		\end{itemize}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{figure}
+			\only<4->{\includegraphics[width=0.75\textwidth]{beta}}
+		\end{figure}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Capture-Recapture-Method}
+\begin{itemize}
+	\item<1-> Möchte Anzahl $N$ von Fischen in einem See bestimmen
+	\item<2-> Entnehme $M$ Fische, markiere diese und gebe sie wieder zurück
+	\item<3-> Entnehme $n$ Fische und bestimme Anzahl $x$ der markierten Fische
+	\item<4-> Naiver Ansatz: $\frac{M}{N}\approx \frac{x}{n}$
+	\item<5-> Nachteil: Keine Information über Ungenauigkeit des Verfahrens
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Capture-Recapture-Method}
+\begin{itemize}
+	\item<1-> Ansatz mittels Bayesscher Inferenz:
+	\item<2-> Likelihood: $$f(x|N)=\frac{\binom{M}{x}\binom{N-M}{n-x}}{\binom{N}{n}}$$
+	\item<3-> Geometrische Verteilung als Prior: $f(N)\propto \pi(1-\pi)^{N-1}$
+	\item<4-> Bsp.: $M=26\, ,~n=63\, ,~x=5\, ,~\pi=0,0011$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Capture-Recapture-Method}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=0.9\textwidth]{geom}
+		\end{figure}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=0.9\textwidth]{capture-recapture}
+		\end{figure}
+	\end{column}
+\end{columns}
+\begin{itemize}
+	\item<1-> $Mod(N|x)=313\, ,~Med(N|x)=392\, ,~E(N|x)=446.5$
+	\item<2-> $95\%$ HPD Intervall: $[61; 869]$
+	\item<3-> Naiver Ansatz liefert: $N\approx 327,6$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conjugate prior distribution}
+\begin{itemize}
+	\item<1-> Eine Klasse $\mathscr{C}$ von Verteilungen heißt konjugiert zu $L(\theta)~(=f(x|\theta))$, wenn gilt: Aus $f(\theta)\in\mathscr{C}$ folgt $f(\theta|x)\in\mathscr{C}$.
+	\item<2-> Beta-Verteilung ist konjugiert zur Binomialverteilung
+	\item<3-> Normalverteilung (mit unbekanntem Erwartungswert) ist zu sich selbst konjugiert
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Uneigentliche Verteilungen}
+\begin{itemize}
+	\item<1-> Verteilung mit Dichtefunktion $f(\theta)$ heißt uneigentlich, falls $$\int_{\Theta}f(\theta)\,\text{d}\theta = \infty$$
+	\item<2-> Kann dennoch eingesetzt werden, falls Posteriori Verteilung wohldefiniert ist
+	\item<3-> Bsp.: Haldane's prior $Be(0,0)$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Variablentransformation}
+\begin{itemize}
+	\item $Y=g(X)$
+	\item $$f_Y(y)=f_X(g^{-1}(y))\left|\frac{\text{d}g^{-1}(y)}{\text{d}y}\right|$$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Jeffrey's prior}
+\end{frame}
+
+\begin{frame}
+\frametitle{Jeffrey's prior für $Bin(n,p)$}
+\end{frame}
+
+\begin{frame}
+\frametitle{Jeffrey's prior für Multinomialverteilung}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bayesian Asymptotics}
+\end{frame}
+
+\begin{frame}
+\frametitle{Empirische Bayes Methoden}
 \end{frame}
 
 \end{document}
