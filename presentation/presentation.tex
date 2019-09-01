@@ -32,6 +32,7 @@
 \usepackage{multimedia}
 \usepackage{media9}
 \usepackage{mathrsfs}
+\usepackage{bm}
 
 \usetheme{EastLansing}
 %\usecolortheme{crane}
@@ -182,7 +183,7 @@
 	\end{column}
 	\begin{column}{0.5\textwidth}
 		\begin{figure}
-			\only<4->{\includegraphics[width=0.75\textwidth]{beta}}
+			\only<4->{\begin{figure}\includegraphics[width=0.75\textwidth]{beta}\caption{Held, Bov\'{e}: Applied Statistical Inference, S. 173}\end{figure}}
 		\end{figure}
 	\end{column}
 \end{columns}
@@ -215,11 +216,13 @@
 	\begin{column}{0.5\textwidth}
 		\begin{figure}
 			\includegraphics[width=0.9\textwidth]{geom}
+			\caption{Held, Bov\'{e}: Applied Statistical Inference, S. 179}
 		\end{figure}
 	\end{column}
 	\begin{column}{0.5\textwidth}
 		\begin{figure}
 			\includegraphics[width=0.9\textwidth]{capture-recapture}
+			\caption{ebd.}
 		\end{figure}
 	\end{column}
 \end{columns}
@@ -258,22 +261,101 @@
 
 \begin{frame}
 \frametitle{Jeffrey's prior}
+\begin{itemize}
+	\item<1-> Ziel: Priori Verteilung invariant unter Variablentransformation
+	\item<2-> Fisher Information: $$I(\theta)=-\frac{\text{d}^2l(\theta)}{\text{d}\theta^2}$$
+	mit log-likelihood function $l(\theta)=ln(L(\theta))$
+	\item<3-> Erwartete Fisher Information: $$J(\theta)=E(I(\theta;X))$$
+	wobei der Erwartungswert bezüglich $X$ gebildet wird
+	\item<4-> Jeffrey's prior $$f(\theta)\propto\sqrt{J(\theta)}$$
+\end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Jeffrey's prior für $Bin(n,p)$}
+\frametitle{Jeffrey's prior}
+\begin{itemize}
+	\item<1-> Für multivariate Verteilungen: Erwartete Fisher Information Matrix $$[J(\boldsymbol{\theta})]_{ij}=E(-\partial_i\partial_jl(\boldsymbol{\theta}))$$
+	\item<2-> Jeffrey's prior $$f(\boldsymbol{\theta})\propto\sqrt{\text{det}\,J(\boldsymbol{\theta})}$$
+\end{itemize}
+\begin{satz}
+	Jeffrey's prior ist invariant unter Variablentransformation, d.h. wenn $\phi = g(\theta)$ und $f_{\theta}(\theta)\propto \sqrt{J_{\theta}(\theta)}$, dann ist $f_{\phi}(\phi)\propto \sqrt{J_{\phi}(\phi)}$.
+\end{satz}
+\end{frame}
+
+\begin{frame}
+\frametitle{Jeffrey's prior für $Bin(n,\theta)$}
+\begin{itemize}
+	\item<1-> $X\sim Bin(n,\theta)$, also $f(x|\theta)= \binom{n}{x}\theta^x(1-\theta)^{n-x}$
+	\item<2-> $l(\theta)=x\,ln(\theta)+(n-x)\,ln(1-\theta)+const$
+	\item<3-> $-\frac{\text{d}^2l(\theta)}{\text{d}\theta^2}=\frac{x}{\theta^2}-\frac{n-x}{(1-\theta)^2}$ 
+	\item<4-> $E(-\frac{\text{d}^2l(\theta)}{\text{d}\theta^2}) = \frac{n\theta}{\theta^2}-\frac{n(1-\theta)}{(1-\theta)^2}=\frac{n}{\theta(1-\theta)}$
+	\item<5-> $\Rightarrow \sqrt{J(\theta)}\propto Be(\frac{1}{2},\frac{1}{2})$
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Jeffrey's prior für Multinomialverteilung}
+\begin{itemize}
+	\item<1-> $\boldsymbol{x}=(x_1,\dots,x_p)\,,~\boldsymbol{\theta}=(\theta_1,\dots,\theta_p)$ mit $\sum_{i=1}^p\theta_p = 1$
+	\item<2-> Multinomialverteilung $M_p(n,\boldsymbol{\theta})$: $$f(\boldsymbol{x})=\left\{\begin{array}{ll}
+	\frac{n!}{\prod_{i=1}^{p}x_i!}\prod_{i=1}^{p}\theta_i^{x_i} & \text{falls }\sum_{i=1}^{p}x_i=n\\
+	0 & \text{sonst}
+	\end{array}\right.$$
+	\item<3-> Dirichlet-Verteilung $D(\alpha_1,\dots,\alpha_p)$: $$f(\boldsymbol{\theta})\propto\prod_{i=1}^{p}\theta_i^{\alpha_i-1}$$
+	\item<4-> Jeffrey's prior für $M_p(n,\boldsymbol{\theta})$:
+	$$\boldsymbol{\theta}\sim D\left(\frac{1}{2},\dots,\frac{1}{2}\right)$$
+\end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Bayesian Asymptotics}
+\frametitle{Asymptotisches Verhalten}
+\begin{itemize}
+	\item<1-> Parametermenge $\Theta=\{\theta_0,\theta_1,\dots\}$, $\theta_0$ ist wahrer Parameter, $X_{1:n}$ Stichprobe von Verteilung mit Dichtefunktion $f(x|\theta)\,,\,\theta\in\Theta$. Dann gilt:
+	$$\underset{n\rightarrow\infty}{\text{lim}}f(\theta_0|x_{1:n})=1\quad \text{und}\quad \underset{n\rightarrow\infty}{\text{lim}}f(\theta_i|x_{1:n})=0~\forall i\neq 0$$
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Empirische Bayes Methoden}
+\begin{itemize}
+	\item<1-> Wählen Priori Verteilung in Abhängigkeit von erhaltenen Daten
+	\item<2-> Bsp.: Analyse der Trefferquoten von Baseballspielern:
+	\item<3-> Spieler A hat 4 von 10 Bällen getroffen, Spieler B hat 300 von 1000 Bällen getroffen. Welcher Spieler ist besser?
+	\item<4-> Trefferzahl $X\sim Bin(n,\theta)$, Treffwahrscheinlichkeit $\theta\sim Be(\alpha,\beta)$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Empirische Bayes Methoden}
+\begin{columns}
+	\begin{column}{0.6\textwidth}
+		\begin{itemize}
+			\item<1-> Bilde Priori Verteilung durch Interpolation über Werte aller Baseballspieler
+			\item<3-> $\Rightarrow \theta\sim Be(78,661\,;\,224,875)$
+			\item<4-> Posteriori Trefferverteilung für Spieler A: $\theta|x\sim Be(82,661\,;\,230,875)$ hat Erwartungswert 0,264
+			\item<5-> Posteriori Trefferverteilung für Spieler B: $\theta|x\sim Be(378,661\,;\,924,875)$ hat Erwartungswert 0,29
+		\end{itemize}
+	\end{column}
+	\begin{column}{0.4\textwidth}
+		\only<2->{\begin{figure}\includegraphics[width=\textwidth]{baseball}\caption{varianceexplained.org}\end{figure}}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Empirische Bayes Methoden}
+\begin{itemize}
+	\item<1-> Posteriori Trefferverteilung für Spieler A: $\theta\sim Be(82,661\,;\,230,875)$ hat Erwartungswert 0,264
+	\item<2-> Posteriori Trefferverteilung für Spieler B: $\theta\sim Be(378,661\,;\,924,875)$ hat Erwartungswert 0,29
+\end{itemize}
+\end{frame}
+
+\section{Bibliographie}
+\begin{frame}
+\frametitle{Bibliographie}
+\begin{itemize}
+	\item Held, Bov\'{e}: Applied Statistical Inference
+\end{itemize}
 \end{frame}
 
 \end{document}
