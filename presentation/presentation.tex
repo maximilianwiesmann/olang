@@ -183,18 +183,18 @@
 \begin{frame}
 \frametitle{Beta-Verteilung Beispiel}
 \begin{columns}
-	\begin{column}{0.5\textwidth}
+	\uncover<1,2,3,4>{\begin{column}{0.5\textwidth}
 		\begin{itemize}
 			\item<1-> $\Theta\sim Be(3,2)~,\quad X\sim Bin(n,\theta)$
 			\item<2-> Ergebnis der Stichprobe mit Umfang $n=10$: $x=8$
 			\item<3-> $\Rightarrow \Theta|x\sim Be(11,4)$
 		\end{itemize}
-	\end{column}
-	\begin{column}{0.5\textwidth}
+	\end{column}}
+	\uncover<4>{\begin{column}{0.5\textwidth}
 		\begin{figure}
-			\only<4->{\begin{figure}\includegraphics[width=0.75\textwidth]{beta}\caption{Held, Bov\'{e}: Applied Statistical Inference, S. 173}\end{figure}}
+			\begin{figure}\includegraphics[width=0.75\textwidth]{beta}\caption{Held, Bov\'{e}: Applied Statistical Inference, S. 173}\end{figure}
 		\end{figure}
-	\end{column}
+	\end{column}}
 \end{columns}
 \end{frame}
 
@@ -282,11 +282,12 @@
 
 \begin{frame}
 \frametitle{Jeffrey's prior}
+\uncover<1,2,3>{
 \begin{itemize}
 	\item<1-> Für multivariate Verteilungen: Erwartete Fisher Information Matrix $$[J(\boldsymbol{\theta})]_{ij}=E(-\partial_i\partial_jl(\boldsymbol{\theta}))$$
 	\item<2-> Jeffrey's prior $$f(\boldsymbol{\theta})\propto\sqrt{\text{det}\,J(\boldsymbol{\theta})}$$
-\end{itemize}
-\only<3->{\begin{satz}
+\end{itemize}}
+\uncover<3>{\begin{satz}
 	Jeffrey's prior ist invariant unter Variablentransformation, d.h. wenn $\phi = g(\theta)$ und $f_{\theta}(\theta)\propto \sqrt{J_{\theta}(\theta)}$, dann ist $f_{\phi}(\phi)\propto \sqrt{J_{\phi}(\phi)}$.
 \end{satz}}
 \end{frame}
@@ -337,17 +338,17 @@
 \begin{frame}
 \frametitle{Empirische Bayes Methoden}
 \begin{columns}
-	\begin{column}{0.6\textwidth}
+	\uncover<1,2,3,4,5>{\begin{column}{0.6\textwidth}
 		\begin{itemize}
 			\item<1-> Bilde Priori Verteilung durch Interpolation über Werte aller Baseballspieler
 			\item<3-> $\Rightarrow \theta\sim Be(78,661\,;\,224,875)$
 			\item<4-> Posteriori Trefferverteilung für Spieler A: $\theta|x\sim Be(82,661\,;\,230,875)$ hat Erwartungswert 0,264
 			\item<5-> Posteriori Trefferverteilung für Spieler B: $\theta|x\sim Be(378,661\,;\,924,875)$ hat Erwartungswert 0,29
 		\end{itemize}
-	\end{column}
-	\begin{column}{0.4\textwidth}
-		\only<2->{\begin{figure}\includegraphics[width=\textwidth]{baseball}\caption{varianceexplained.org}\end{figure}}
-	\end{column}
+	\end{column}}
+	\uncover<2,3,4,5>{\begin{column}{0.4\textwidth}
+		\begin{figure}\includegraphics[width=\textwidth]{baseball}\caption{varianceexplained.org}\end{figure}
+	\end{column}}
 \end{columns}
 \end{frame}
 
