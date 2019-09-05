@@ -33,6 +33,7 @@
 \usepackage{media9}
 \usepackage{mathrsfs}
 \usepackage{bm}
+\usepackage{etoolbox}
 
 \usetheme{EastLansing}
 %\usecolortheme{crane}
@@ -68,8 +69,13 @@
 \setbeamercolor{block body}{use=structure,fg=black,bg=green!10!yellow!30!white}
 \setbeamercolor{codex}{fg=black,bg=green!10!yellow!30!white}
 
+%the following lines generate the bullet points in the header
 \usepackage{remreset}
 \makeatletter
+%\@removefromreset{subsection}{section}
+%\makeatother
+%\setcounter{subsection}{1}
+
 
 \title[Bayes-Statistik \& Wahlprognosen]{\textbf{Tag 5: Bayes-Statistik und Wahlprognosen}}
 \author[Philip \and Tanja \and Maximilian]{Philip Biegel \and Tanja Bien \and Maximilian Wiesmann}
@@ -89,7 +95,7 @@
 \tableofcontents
 \end{frame}
 
-\section{Bayessche Inferenz}
+\section{Bayessche Inferenz 1}
 \begin{frame}
 \frametitle{Bayessche Inferenz}
 \begin{itemize}
@@ -153,13 +159,13 @@
 \begin{frame}
 \frametitle{Beta-Verteilung}
 \begin{itemize}
-	\item<1-> $\Theta \sim Be(\alpha,\beta)$
+	\item<1-> $\theta \sim Be(\alpha,\beta)$
 	\item<2-> Dichtefunktion $$f(\theta)=\left\{\begin{array}{ll}
 	\frac{1}{B(\alpha,\beta)}\theta^{\alpha -1}(1-\theta)^{\beta -1} & \text{für }\theta\in[0,1]\\
 	0 & \text{sonst}\\
 	\end{array}\right.$$
 	mit Beta-Funktion $B(\alpha,\beta)=\int_0^1t^{\alpha-1}(1-t)^{\beta-1}\,\text{d}t = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}$
-	\item<3-> $$E(\Theta) = \frac{\alpha}{\alpha+\beta}\quad,\quad Mod(\Theta)=\frac{\alpha-1}{\alpha+\beta-2}\quad,\quad Var(\Theta)=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}$$
+	\item<3-> $$E(\theta) = \frac{\alpha}{\alpha+\beta}\quad,\quad Mod(\theta)=\frac{\alpha-1}{\alpha+\beta-2}\quad,\quad Var(\theta)=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}$$
 	\item<4-> für $\alpha=\beta=1$ erhält man die Gleichverteilung auf $[0,1]$
 \end{itemize}
 \end{frame}
@@ -174,9 +180,10 @@
 \begin{frame}
 \frametitle{Beta-Verteilung}
 \begin{itemize}
-	\item<1-> $X\sim Bin(n,\theta)~,\quad \Theta\sim Be(\alpha,\beta)$
+	\item<1-> $X\sim Bin(n,\theta)~,\quad \theta\sim Be(\alpha,\beta)$
 	\item<2-> $\Rightarrow f(\theta|x)\propto f(x|\theta)f(\theta)\propto \theta^x(1-\theta)^{n-x}\theta^{\alpha-1}(1-\theta)^{\beta-1}$
-	\item<3-> $\Rightarrow \Theta|x \sim Be(\alpha+x,\beta+n-x)$
+	\item<3-> $\Rightarrow \theta|x \sim Be(\alpha+x,\beta+n-x)$
+	\item<4-> Beta-Verteilung \textit{konjugiert} zur Binomialverteilung
 \end{itemize}
 \end{frame}
 
@@ -185,9 +192,9 @@
 \begin{columns}
 	\uncover<1,2,3,4>{\begin{column}{0.5\textwidth}
 		\begin{itemize}
-			\item<1-> $\Theta\sim Be(3,2)~,\quad X\sim Bin(n,\theta)$
+			\item<1-> $\theta\sim Be(3,2)~,\quad X\sim Bin(n,\theta)$
 			\item<2-> Ergebnis der Stichprobe mit Umfang $n=10$: $x=8$
-			\item<3-> $\Rightarrow \Theta|x\sim Be(11,4)$
+			\item<3-> $\Rightarrow \theta|x\sim Be(11,4)$
 		\end{itemize}
 	\end{column}}
 	\uncover<4>{\begin{column}{0.5\textwidth}
@@ -204,8 +211,7 @@
 	\item<1-> Möchte Anzahl $N$ von Fischen in einem See bestimmen
 	\item<2-> Entnehme $M$ Fische, markiere diese und gebe sie wieder zurück
 	\item<3-> Entnehme $n$ Fische und bestimme Anzahl $x$ der markierten Fische
-	\item<4-> Naiver Ansatz: $\frac{M}{N}\approx \frac{x}{n}$
-	\item<5-> Nachteil: Keine Information über Ungenauigkeit des Verfahrens
+	\item<4-> Möglicher Ansatz: $\frac{M}{N}\approx \frac{x}{n}$
 \end{itemize}
 \end{frame}
 
@@ -238,27 +244,27 @@
 \begin{itemize}
 	\item<1-> $Mod(N|x)=313\, ,~Med(N|x)=392\, ,~E(N|x)=446.5$
 	\item<2-> $95\%$ HPD Intervall: $[61; 869]$
-	\item<3-> Naiver Ansatz liefert: $N\approx 327,6$
+	\item<3-> Erster Ansatz liefert: $N\approx 327,6$
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{Conjugate prior distribution}
-\begin{itemize}
-	\item<1-> Eine Klasse $\mathscr{C}$ von Verteilungen heißt konjugiert zu $L(\theta)~(=f(x|\theta))$, wenn gilt: Aus $f(\theta)\in\mathscr{C}$ folgt $f(\theta|x)\in\mathscr{C}$.
-	\item<2-> Beta-Verteilung ist konjugiert zur Binomialverteilung
-	\item<3-> Normalverteilung (mit unbekanntem Erwartungswert) ist zu sich selbst konjugiert
-\end{itemize}
-\end{frame}
+%\begin{frame}
+%\frametitle{Conjugate prior distribution}
+%\begin{itemize}
+%	\item<1-> Eine Klasse $\mathscr{C}$ von Verteilungen heißt konjugiert zu $L(\theta)~(=f(x|\theta))$, wenn gilt: Aus $f(\theta)\in\mathscr{C}$ folgt $f(\theta|x)\in\mathscr{C}$.
+%	\item<2-> Beta-Verteilung ist konjugiert zur Binomialverteilung
+%	\item<3-> Normalverteilung (mit unbekanntem Erwartungswert) ist zu sich selbst konjugiert
+%\end{itemize}
+%\end{frame}
 
-\begin{frame}
-\frametitle{Uneigentliche Verteilungen}
-\begin{itemize}
-	\item<1-> Verteilung mit Dichtefunktion $f(\theta)$ heißt uneigentlich, falls $$\int_{\Theta}f(\theta)\,\text{d}\theta = \infty$$
-	\item<2-> Kann dennoch eingesetzt werden, falls Posteriori Verteilung wohldefiniert ist
-	\item<3-> Bsp.: Haldane's prior $Be(0,0)$
-\end{itemize}
-\end{frame}
+%\begin{frame}
+%\frametitle{Uneigentliche Verteilungen}
+%\begin{itemize}
+%	\item<1-> Verteilung mit Dichtefunktion $f(\theta)$ heißt uneigentlich, falls $$\int_{\Theta}f(\theta)\,\text{d}\theta = \infty$$
+%	\item<2-> Kann dennoch eingesetzt werden, falls Posteriori Verteilung wohldefiniert ist
+%	\item<3-> Bsp.: Haldane's prior $Be(0,0)$
+%\end{itemize}
+%\end{frame}
 
 \begin{frame}
 \frametitle{Variablentransformation}
@@ -277,6 +283,7 @@
 	\item<3-> Erwartete Fisher Information: $$J(\theta)=E(I(\theta;X))$$
 	wobei der Erwartungswert bezüglich $X$ gebildet wird
 	\item<4-> Jeffrey's prior $$f(\theta)\propto\sqrt{J(\theta)}$$
+	\item<5-> drückt Uninformiertheit aus
 \end{itemize}
 \end{frame}
 
@@ -317,12 +324,17 @@
 \end{itemize}
 \end{frame}
 
+\section{Bayessche Inferenz 2}
 \begin{frame}
 \frametitle{Asymptotisches Verhalten}
+\uncover<1,2>{
 \begin{itemize}
 	\item<1-> Parametermenge $\Theta=\{\theta_0,\theta_1,\dots\}$, $\theta_0$ ist wahrer Parameter, $X_{1:n}$ Stichprobe von Verteilung mit Dichtefunktion $f(x|\theta)\,,\,\theta\in\Theta$. Dann gilt:
 	$$\underset{n\rightarrow\infty}{\text{lim}}f(\theta_0|x_{1:n})=1\quad \text{und}\quad \underset{n\rightarrow\infty}{\text{lim}}f(\theta_i|x_{1:n})=0~\forall i\neq 0$$
-\end{itemize}
+\end{itemize}}
+\uncover<2>{\begin{figure}
+		\includegraphics[width=0.3\textwidth]{beta2}
+\end{figure}}
 \end{frame}
 
 \begin{frame}
@@ -338,15 +350,16 @@
 \begin{frame}
 \frametitle{Empirische Bayes Methoden}
 \begin{columns}
-	\uncover<1,2,3,4,5>{\begin{column}{0.6\textwidth}
+	\uncover<1,2,3,4,5,6>{\begin{column}{0.6\textwidth}
 		\begin{itemize}
 			\item<1-> Bilde Priori Verteilung durch Interpolation über Werte aller Baseballspieler
 			\item<3-> $\Rightarrow \theta\sim Be(78,661\,;\,224,875)$
 			\item<4-> Posteriori Trefferverteilung für Spieler A: $\theta|x\sim Be(82,661\,;\,230,875)$ hat Erwartungswert 0,264
 			\item<5-> Posteriori Trefferverteilung für Spieler B: $\theta|x\sim Be(378,661\,;\,924,875)$ hat Erwartungswert 0,29
+			\item<6-> Shrinkage
 		\end{itemize}
 	\end{column}}
-	\uncover<2,3,4,5>{\begin{column}{0.4\textwidth}
+	\uncover<2,3,4,5,6>{\begin{column}{0.4\textwidth}
 		\begin{figure}\includegraphics[width=\textwidth]{baseball}\caption{varianceexplained.org}\end{figure}
 	\end{column}}
 \end{columns}
