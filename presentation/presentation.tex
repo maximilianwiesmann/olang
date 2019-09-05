@@ -92,10 +92,11 @@
 \begin{frame}
 \frametitle{Inhalt}
 \section[Inhalt]{Inhalt}
-\tableofcontents
+%\tableofcontents
 \end{frame}
 
-\section{Bayessche Inferenz 1}
+\section{Bayessche Inferenz I}
+
 \begin{frame}
 \frametitle{Bayessche Inferenz}
 \begin{itemize}
@@ -324,7 +325,104 @@
 \end{itemize}
 \end{frame}
 
-\section{Bayessche Inferenz 2}
+\section{Koala}
+
+\begin{frame}
+	\frametitle{Koala}
+	\begin{itemize}
+		\item Ansatz für Mehr-Parteien-Systeme mit besonderem Fokus auf Koalitionswahrscheinlichkeiten
+		\item Meinungsbild (wenn die Wahl heute wäre) 
+		\item Monte-Carlo-Ansatz basierend auf einem Bayesschen Multinomial-Dirichlet Model
+		\item Vorstellung neuer Visualisierungstechnik
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Koala}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}[t!]
+				\includegraphics[height=0.5\textheight]{partyshare}
+				\caption{Stimmanteile der Parteien}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}[h!]
+				\includegraphics[height=0.5\textheight]{poe}
+				\caption{Sitzanteil für Koalition}
+			\end{figure}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Koala}
+	\begin{columns}
+		\begin{column}{0.6\textwidth}
+			Klassische Wahlberichterstattung
+			\begin{itemize}
+				\item Darstellung der Stimmanteile der Parteien
+				\item Fokus auf Ergebnisse einzelner Parteien
+				\item Unzureichende Vermittlung von Unsicherheit			
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\begin{figure}
+				\includegraphics[width=\textwidth]{partyshare}
+			\end{figure}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Koala}
+	\begin{columns}
+		\begin{column}{0.6\textwidth}
+			Vorgeschlagene Wahlberichtserstattung
+			\begin{itemize}
+				\item Darstellung der Wahrscheinlichkeit eines Ereignisses durch Dichteplots
+				\item Fokus auf spezifischem Ereignis (z.\,B. Koalitionsbildung)
+				\item Vermittlung der Unsicherheit und Bandbreite der Ergebnisse
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\begin{figure}
+				\includegraphics[width=\textwidth]{poe}
+			\end{figure}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Koala}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			Typische Überschrift:
+			\begin{itemize}
+				\item \glqq Union-FDP verliert die Mehrheit\grqq{}
+			\end{itemize}
+
+			\vspace{1cm}
+			Vorgeschlagene Überschrift:
+			\begin{itemize}
+				\item \glqq Union-FDP erreicht zu 26\% Sitzmehrheit \grqq{}
+				\item \glqq FDP zieht zu 51\% ins Parlament ein \grqq{}
+			\end{itemize}
+			
+		\end{column}
+		\begin{column}{0.6\textwidth}
+			\begin{figure}
+				\includegraphics[height=0.35\textheight]{partyshare}
+			\end{figure}
+			\begin{figure}
+				\includegraphics[height=0.40\textheight]{poe}
+			\end{figure}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\section{Bayessche Inferenz II}
+
 \begin{frame}
 \frametitle{Asymptotisches Verhalten}
 \uncover<1,2>{
@@ -364,6 +462,9 @@
 	\end{column}}
 \end{columns}
 \end{frame}
+
+\
+
 
 \section{Bibliographie}
 \begin{frame}
