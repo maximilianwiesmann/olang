@@ -112,6 +112,14 @@
 \end{frame}
 
 \begin{frame}
+\frametitle{Bayesscher Wasserfall}
+\begin{figure}
+	\includegraphics[height=0.9\textheight]{Bayes}
+	\caption{arbital.com}
+\end{figure}
+\end{frame}
+
+\begin{frame}
 \frametitle{Bsp.: Diagnosetest}
 \begin{itemize}
 	\item<1-> $D+$: Person ist krank; $D-$: Person nicht krank
@@ -248,24 +256,6 @@
 	\item<3-> Erster Ansatz liefert: $N\approx 327,6$
 \end{itemize}
 \end{frame}
-
-%\begin{frame}
-%\frametitle{Conjugate prior distribution}
-%\begin{itemize}
-%	\item<1-> Eine Klasse $\mathscr{C}$ von Verteilungen heißt konjugiert zu $L(\theta)~(=f(x|\theta))$, wenn gilt: Aus $f(\theta)\in\mathscr{C}$ folgt $f(\theta|x)\in\mathscr{C}$.
-%	\item<2-> Beta-Verteilung ist konjugiert zur Binomialverteilung
-%	\item<3-> Normalverteilung (mit unbekanntem Erwartungswert) ist zu sich selbst konjugiert
-%\end{itemize}
-%\end{frame}
-
-%\begin{frame}
-%\frametitle{Uneigentliche Verteilungen}
-%\begin{itemize}
-%	\item<1-> Verteilung mit Dichtefunktion $f(\theta)$ heißt uneigentlich, falls $$\int_{\Theta}f(\theta)\,\text{d}\theta = \infty$$
-%	\item<2-> Kann dennoch eingesetzt werden, falls Posteriori Verteilung wohldefiniert ist
-%	\item<3-> Bsp.: Haldane's prior $Be(0,0)$
-%\end{itemize}
-%\end{frame}
 
 \begin{frame}
 \frametitle{Variablentransformation}
@@ -463,8 +453,50 @@
 \end{columns}
 \end{frame}
 
-\
+\section{Vorhersagemodell}
 
+\begin{frame}
+	\frametitle{Vorhersagemodell}
+		\begin{itemize}
+			\item Dynamisches Bayessches Vorhersagemodell für Mehr-Parteien-Wahlen 
+			\item Kombination aus Regressionsmodell und Bayesschen Modell
+			\item Vorhersage von Stimmanteilen und weiterer Kennzahlen
+		\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Regressionsmodell}
+	\begin{itemize}
+		\item Vorhersage der Stimmenanteile lange vor der Wahl
+		\item Nutzung von Daten vorheriger Wahlen
+		\item Vorhersager $X$ sagt Ergebnisse $V$ mit Parametern $\theta$ vorher
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Bayessches Modell}
+	\begin{itemize}
+		\item<1 -> Vorhersage der aktuellen Stimmenanteile
+		\item<1 -> Nutzung von Daten aus aktuellen Umfragen
+		\item<2 -> Backward Random Walk: $\alpha_t = \alpha_{t+1} + \omega$
+		\item<3 -> Stimmanteile am Wahltag = Posterior predictive distribution des Regressionsmodells
+		\item<4 -> Update bei neuen Ereignissen
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Vorhersagemodell}
+	\begin{figure}
+		\includegraphics[height=0.85\textheight]{development}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Vorhersagemodell}
+	\begin{figure}
+		\includegraphics[height=0.85\textheight]{forecast}
+	\end{figure}
+\end{frame}
 
 \section{Bibliographie}
 \begin{frame}
