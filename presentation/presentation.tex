@@ -462,6 +462,152 @@ $$\underset{n\rightarrow\infty}{\text{lim}}f(\theta_0|x_{1:n})=1\quad \text{und}
 \end{columns}
 \end{frame}
 
+
+\section{MCMC-Algorithmus}
+\begin{frame}
+\frametitle{Markow-Chain-Monte-Carlo-Verfahren}
+\begin{itemize}
+	\item Markow-Chain-Monte-Carlo-Algorithmen sind eine Klasse von Algorithmen zum Ziehen von Stichproben aus Wahrscheinlichkeitsverteilungen.
+	\item Simulationsbasierte Bayes-Interferenz erfordert Ziehungen aus der Posteriori-Verteilung.
+	\item Idee: Erzeugung einer Markow-Kette, deren stationäre Verteilung die Posteriori-Verteilung ist.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Idee: Markow-Kette}
+\begin{itemize}
+	\item<1-> Spezielle Klasse stochastischer Prozesse
+	\item<2-> Prozesse mit zyklischem Verhalten
+	\item<3-> Es gibt eine gewisse Anzahl an diskreten Zuständen, zwischen denen der stochastische Prozess im Laufe des Prozesses wechselt
+	\item<4-> Beschreibung dessen über längeren Zeitraum ohne größeren Aufwand 
+	\item<5-> Interessant für zukünftige Entwicklungen
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Definition: Markow-Kette}
+\begin{itemize}
+	\item[]<1-> 
+	\begin{beamercolorbox}[sep=0.5em,wd=\textwidth,shadow=true,rounded=true]{codex}
+		\textit{Ein stochastischer Prozess $\lbrace X_t,t \in X_0 \rbrace$ mit abzählbaren Zustandsraum $E$ heißt Markow-Kette genau dann, wenn $P(X_n+1 =k \vert X_0 =e_0 ,X_1 =e_1 ,\dots,X_n =e_n )=P(X_n+1 =k \vert X_n =e_n)$ für alle $n\in \mathbb{N}$ und alle $k,e_0 ,\dots,e_n \in E$.}
+	\end{beamercolorbox}
+	\item<2-> Also: Wahrscheinlichkeit eines Übergangs zu Zustand \(X_n+1\)
+	lediglich abhängig vom vorherigen Zustand $X_n$ und nicht von früheren Zuständen.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Charakteristika: Markow-Ketten}
+\begin{itemize}
+	\item<1-> Zustandsraum.
+	\item<2-> Anfangsverteilung. $\overset{\rightarrow}{p}=(p_1 (0),p_2 (0),\dots)^T$
+	\item<3-> Übergangswahrscheinlichkeiten. \(P(e_i \longrightarrow e_k)=P(e_i \vert e_k)=p_{ik}\)
+	\item<4-> Übergangsmatrix. \(P=(p_{ik})_{i,k\in E}\)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Beispiel: Markow-Ketten}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{center}
+\begin{figure}
+\includegraphics[width=1\textwidth]{Markov_Chain_Probabilities}
+\end{figure}
+\end{center}
+\end{column}
+\begin{column}{0.5\textwidth}
+$$\left(
+   \begin{array}{cccc}
+     0 & 0.5 & 0 & 0.5 \\
+     0.5 & 0 & 0.5 & 0 \\
+     0 & \frac{1}{3} & \frac{1}{3} & \frac{1}{3} \\
+     0.5 & 0 & 0.5 & 0
+   \end{array}
+\right)$$
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Monte-Carlo-Simulation}
+\begin{itemize}
+	\item<1-> Verfahren zur Lösung von Problemen mit der Wahrscheinlichkeitstheorie
+	\item<2-> Basis: große Zahl gleichartiger Zufallsexperimente
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Beispiel: Monte-Carlo-Simulation}
+\begin{itemize}
+	\item<1-> Bestimmung der Zahl $\pi$ mit Monte-Carlo-Simulationen
+	\item<2-> Erzeugung zufälliger Punkte aus dem Intervall $(x,y ~\vert~ x,y \in \left[ -1,1 \right] )$
+	\item<3-> Überprüfung, ob diese im Einheitskreis liegen
+	\item<4-> Näherungsweise Bestimmung der Kreisfläche durch Verhältnis der Punkte innerhalb und außerhalb des Kreises
+	\item<5-> $\frac{\pi}{4} =\frac{\text{Kreisfläche}}{\text{Quadratfläche}} =\frac{\text{Treffer in Kreisfläche}}{\text{generierte Punkte}}$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Beispiel: Monte-Carlo-Simulation}
+\begin{figure}
+\includegraphics[width=0.4\textwidth]{MonteCarlo}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Idee: MCMC-Algorithmus}
+\begin{itemize}
+	\item<1-> Simulation einer Markow-Kette, die so gewählt ist, dass sie gegen die posteriori-Verteilung konvergiert.
+	\item<2-> Bei Konvergenz erhalten wir Stichproben der posteriori-Verteilung
+	\item<3-> Allerdings: Diese Stichproben sind voneinander abhängig.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Gemeinsamkeiten: MCMC-Algorithmus}
+\begin{itemize}
+	\item<1-> Viele Designs des MCMC-Algorithmus.
+	\item<2-> In jedem Durchlauf $m$ werden mit der sogenannten Vorschlagsverteilung potenzielle neue Zustände erzeugt.
+	\item<3-> Diese sind abhängig vom aktuellen Zustand der Markow-Kette.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Konzept: Metropolis-Hastings-Algorithmus}
+\begin{itemize}
+	\item<1-> Akzeptanz des neuen Vorschlags mit der sogenannten Vorschlagswahrscheinlichkeit.
+	\item<2-> Man kann zeigen: Unter bestimmten Voraussetzungen konvergiert dieser Algorithmus gegen die Zielverteilung.
+	\item<3-> Unabhängig von der Wahl der Vorschlagsverteilung.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Effizienz: Metropolis-Hastings-Algorithmus}
+\begin{itemize}
+	\item<1-> Konvergenzgeschwindigkeit und Abhängigkeit zw. Stichproben variiert stark mit der Vorschlagsverteilung.
+	\item<2-> Effizienz entscheidend abhängig von der Akzeptanzrate.
+	\item<3-> Oftmals empfohlen: Akzeptraten zw. $0,3$ und $0,5$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Praxis: MCMC-Algorithmus}
+\begin{itemize}
+	\item<1-> Wissen: MCMC-Algorithmus konvergiert gegen Zielverteilung
+	\item<2-> Entscheidung: Wann ist die Zielverteilung erreicht?
+	\item<3-> Burn-in-Phase. Nicht-Berücksichtigung der ersten Zustände.
+	\item<4-> Dann: Betrachtung der folgenden Werte als Stichprobe der Zielverteilung.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Burn-In-Phase: MCMC-Algorithmus}
+\begin{figure}
+\includegraphics[width=0.7\textwidth]{Markov_Chain2}
+\end{figure}
+\end{frame}
+
 \section{Vorhersagemodell}
 
 \begin{frame}
